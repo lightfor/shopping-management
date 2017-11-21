@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+logging:
+    level:
+        org.lightfor.shoppingmanagement: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test
+    username: dev
+    password: dev
+    druid:
+      initial-size: 1
+  freemarker:
+    request-context-attribute: request
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis:
+    type-aliases-package: org.lightfor.shoppingmanagement.domain
+    mapper-locations: classpath:mapper/*.xml
+    configuration:
+      map-underscore-to-camel-case: true
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
