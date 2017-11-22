@@ -1,0 +1,1 @@
+$.jgrid.defaults.styleUI = 'Bootstrap';
