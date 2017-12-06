@@ -26,7 +26,7 @@ public class ItemController {
     @ResponseBody
     public Pager getAll() {
         Pager<Item> itemPager = new Pager<>();
-        itemPager.setRows(itemService.findAll());
+        itemPager.setData(itemService.findAll());
         return itemPager;
     }
 }

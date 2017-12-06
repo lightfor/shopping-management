@@ -8,13 +8,13 @@ import java.util.List;
  */
 public class Pager<T> {
 
-    private List<T> rows;
+    private List<T> data;
 
-    public List<T> getRows() {
-        return rows;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setRows(List<T> rows) {
-        this.rows = rows;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 }

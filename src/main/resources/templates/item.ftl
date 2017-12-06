@@ -2,66 +2,67 @@
 
 <html lang="zh">
 <head>
-    <base href="${request.contextPath}">
-    <script type="text/ecmascript" src="jquery/jquery.min.js"></script>
-    <script type="text/ecmascript" src="jqgrid/i18n/grid.locale-cn.js"></script>
-    <script type="text/ecmascript" src="jqgrid/jquery.jqGrid.min.js"></script>
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="jqgrid/css/ui.jqgrid-bootstrap.css"/>
-    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="js/common.js"></script>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/datatables/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <title>商品列表</title>
+
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div>
-    <table id="jqGrid"></table>
-    <div id="jqGridPager"></div>
-</div>
+<table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>商品名称</th>
+        <th>价格</th>
+        <th>保修政策</th>
+        <th>服务价格</th>
+        <th>完成时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+</table>
+<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.bootcss.com/datatables/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#jqGrid").jqGrid({
-            url: 'getAll',
-            mtype: "GET",
-            datatype: "json",
-            colModel: [
-                {label: 'id', name: 'id', key: true, width: 75},
-                {label: '商品名称', name: 'name', width: 150},
-                {label: '价格', name: 'price', width: 150},
-                {label: '保修政策', name: 'warranty', width: 150},
-                {label: '服务价格', name: 'servicePrice', width: 150},
-                {label: '完成时间', name: 'finishDate', width: 150},
-                {label: '操作', name: '', width: 150, formatter : linkBtn}
-            ],
-            viewrecords: true,
-            height: 320,
-            rowNum: 10,
-            page : 1,
-            rowList : [ 10, 20, 50, 100 ],
-            pager: "#jqGridPager"
-        });
+    $(function () {
+        $('#table').DataTable( {
+            "oLanguage":{
+                "sLengthMenu":"显示 _MENU_ 条记录",
+                "sZeroRecords":"没有检索到数据",
+                "sInfo":"当前数据为从 _START_ 到 _END_ 条数据；总共有 _TOTAL_ 条记录",
+                "sInfoEmpty":"没有数据",
+                "sProcessing":"正在加载数据......",
+                "sSearch":"查询",
+                "sInfoFiltered": "(过滤自 _MAX_ 条记录)",
+                "oPaginate":{
+                    "sFirst":"首页",
+                    "sPrevious":"前页",
+                    "sNext":"后页",
+                    "sLast":"尾页"
+                }
+            },
+            "ajax": "getAll",
+            "columns": [
+                { "data": "id" },
+                { "data": "name" },
+                { "data": "price" },
+                { "data": "warranty" },
+                { "data": "servicePrice" },
+                { "data": "finishDate" }
+            ]
+        } );
     });
 
-    linkBtn = function(cellvalue, options, rowObject) {
-        var html = '';
-        if (rowObject) {
-            var id = rowObject.id;
-            var editBtn = '<a href="javascript:;" onclick="toUpd(' + id + ')" class="btn btn-xs green">' +
-                    '<i class="fa fa-edit"></i></a>';
-
-            var delBtn = '<a href="javascript:;" onclick="doDel(' + id + ')" class="btn btn-xs red">' +
-                    '<i class="fa fa-remove"></i></a>';
-
-            html += editBtn + delBtn;
-        }
-
-        return html;
-    }
 
 </script>
-
-
 </body>
 </html>
